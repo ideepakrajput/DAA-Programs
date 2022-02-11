@@ -88,10 +88,11 @@ int main()
 
     int c = mergeSort(ar, 0, n - 1);
 
-    cout << "\n------------: Sorted Array is :------------ \n";
-    printArray(ar, n);
     cout << "\n------------: The number of comparisons in sorting :------------ \n";
     cout << c;
+
+    cout << "\n------------: Sorted Array is :------------ \n";
+    printArray(ar, n);
 
     return 0;
 }

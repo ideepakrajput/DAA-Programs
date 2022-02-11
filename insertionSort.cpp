@@ -20,11 +20,10 @@ void insertionSort(int ar[], int l)
         {
             ar[j + 1] = ar[j];
             j = j - 1;
-            comp++;
         }
         ar[j + 1] = key;
-
         printArray(ar, l);
+        comp++;
     }
     cout << "\nTotal comparision :- " << comp << endl;
 }

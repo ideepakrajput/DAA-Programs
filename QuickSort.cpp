@@ -1,5 +1,6 @@
 #include <iostream>
 using namespace std;
+int comp = 0;
 void printArray(int arr[], int size)
 {
     for (int i = 0; i < size; i++)
@@ -28,6 +29,7 @@ int partition(int ar[], int p, int r)
 void quickSort(int ar[], int p, int r)
 {
     int q;
+    comp++;
     if (p < r)
     {
         q = partition(ar, p, r);
@@ -50,6 +52,9 @@ int main()
     printArray(ar, n);
 
     quickSort(ar, 0, n - 1);
+
+    cout << "\n------------: The number of comparisons in sorting :------------ \n";
+    cout << comp;
 
     cout << "\n------------: Sorted Array is :------------ \n";
     printArray(ar, n);
