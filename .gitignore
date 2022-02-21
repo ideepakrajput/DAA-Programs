@@ -2,5 +2,8 @@
 /QuickSort
 /mergeSort
 /MergeSortGraph/mergesort
+/HeapSort Graph/heapSort
+/InsertionSortGraph/insertionSort
+/RandomizedQuickSort Graph/randomizedQuickSort
 /randomizedQuickSort
 /heapSort

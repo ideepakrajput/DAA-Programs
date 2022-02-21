@@ -12,74 +12,45 @@ using namespace std;
 
 int t;
 
-// MERGE SORT FUNCTION
-//  A function to merge the two half into a sorted data.
-void Merge(int *a, int low, int high, int mid)
+// HEAP SORT FUNCTION
+void heapify(int arr[], int n, int i)
 {
-	// We have low to mid and mid+1 to high already sorted.
-	int i, j, k, temp[high - low + 1];
-	i = low;
-	k = 0;
-	j = mid + 1;
+	// Find largest among root, left child and right child
+	int largest = i;
+	int left = 2 * i + 1;
+	int right = 2 * i + 2;
 
-	// Merge the two parts into temp[].
-	while (i <= mid && j <= high)
-	{
-		t++;
-		if (a[i] < a[j])
-		{
-			temp[k] = a[i];
-			k++;
-			i++;
-		}
-		else
-		{
-			temp[k] = a[j];
-			k++;
-			j++;
-		}
-	}
+	if (left < n && arr[left] > arr[largest])
+		largest = left;
 
-	// Insert all the remaining values from i to mid into temp[].
-	while (i <= mid)
-	{
-		temp[k] = a[i];
-		k++;
-		i++;
-	}
+	if (right < n && arr[right] > arr[largest])
+		largest = right;
 
-	// Insert all the remaining values from j to high into temp[].
-	while (j <= high)
+	// Swap and continue heapifying if root is not largest
+	if (largest != i)
 	{
-		temp[k] = a[j];
-		k++;
-		j++;
-	}
-
-	// Assign sorted data stored in temp[] to a[].
-	for (i = low; i <= high; i++)
-	{
-		a[i] = temp[i - low];
+		swap(arr[i], arr[largest]);
+		heapify(arr, n, largest);
 	}
 }
 
-// A function to split array into two parts.
-void MergeSort(int *a, int low, int high)
+// main function to do heap sort
+void heapSort(int arr[], int n)
 {
-	int mid;
 	t++;
-	if (low < high)
-	{
-		mid = (low + high) / 2;
-		// Split the data into two half.
-		MergeSort(a, low, mid);
-		MergeSort(a, mid + 1, high);
+	// Build max heap
+	for (int i = n / 2 - 1; i >= 0; i--)
+		heapify(arr, n, i);
 
-		// Merge them to get sorted output.
-		Merge(a, low, high, mid);
+	// Heap sort
+	for (int i = n - 1; i >= 0; i--)
+	{
+		swap(arr[0], arr[i]);
+
+		// Heapify root element to get highest element at root again
+		heapify(arr, i, 0);
 	}
 }
-
 // FUNCTION DECLARATION
 
 void compare();
@@ -108,7 +79,7 @@ void compare()
 	vector<double> compArray;
 	vector<double> nlogn;
 
-	output1.open("output1.txt", ios::out);
+	output1.open("heapSort.txt", ios::out);
 	if (!output1)
 	{
 		cout << "File Not Created/\n";
@@ -141,7 +112,7 @@ void compare()
 			output1 << "LENGTH OF ARRAY IS = " << k;
 			arraySize.push_back(k);
 
-			MergeSort(a, 0, k - 1);
+			heapSort(a, k - 1);
 
 			// Printing the sorted data.
 			int l = 0;
@@ -233,7 +204,7 @@ void plotGraph(vector<double> arraySize, vector<double> compArray, vector<double
 	if (success)
 	{
 		vector<double> *pngdata = ConvertToPNG(imageReference->image);
-		WriteToFile(pngdata, "plot.png");
+		WriteToFile(pngdata, "heapSort.png");
 		DeleteImage(imageReference->image);
 	}
 	else
